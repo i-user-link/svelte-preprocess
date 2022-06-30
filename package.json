@@ -112,7 +112,7 @@
     "detect-indent": "^7.0.0",
     "magic-string": "^0.26.2",
     "sorcery": "^0.10.0",
-    "strip-indent": "^4.0.0"
+    "strip-indent": "^3.0.0"
   },
   "peerDependencies": {
     "@babel/core": "^7.18.6",
