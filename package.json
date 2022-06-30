@@ -38,7 +38,7 @@
     "patch": "npm version patch -m 'chore(release): %s'",
     "minor": "npm version minor -m 'chore(release): %s'",
     "major": "npm version major -m 'chore(release): %s'",
-    "prepublishOnly": "npm run test && npm run build"
+    "prepublishOnly": "npm run build"
   },
   "jest": {
     "collectCoverage": true,
