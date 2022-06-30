@@ -2,7 +2,7 @@
 
 CMD = new Set('if else elseif key each await then catch html const debug'.split(' '))
 
-export default main = (pug)=>
+module.exports = (pug)=>
   li = []
   for line in pug.split('\n')
     ts = line.trimStart()
