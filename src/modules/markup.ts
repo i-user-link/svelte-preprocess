@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { Transformer, Preprocessor } from '../types';
 
 /** Create a tag matching regexp. */

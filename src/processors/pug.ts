@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { prepareContent } from '../modules/prepareContent';
 import { transformMarkup } from '../modules/markup';
 

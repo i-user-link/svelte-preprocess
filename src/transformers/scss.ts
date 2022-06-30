@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { readFileSync } from 'fs';
 import { join, isAbsolute } from 'path';
 

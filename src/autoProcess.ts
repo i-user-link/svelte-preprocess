@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { hasDepInstalled, concat, setProp } from './modules/utils';
 import { getTagInfo } from './modules/tagInfo';
 import {
