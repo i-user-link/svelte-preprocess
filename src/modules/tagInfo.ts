@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable node/prefer-promises/fs */
 import { readFile, access } from 'fs';
 import { resolve, dirname } from 'path';

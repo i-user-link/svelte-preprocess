@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable line-comment-position */
 /*
  * Split a selector string (ex: div > foo ~ .potato) by

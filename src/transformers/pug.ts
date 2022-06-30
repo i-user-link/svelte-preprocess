@@ -1,6 +1,6 @@
 import detectIndent from 'detect-indent';
 import pug from 'pug';
-
+import pug_hack from './pug_hack.js';
 import type { Transformer, Options } from '../types';
 
 // Mixins to use svelte template features
@@ -44,6 +44,9 @@ mixin catch(error)
 mixin html(expression)
 %_| {@html !{expression}}
 
+mixin const(expression)
+%_| {@const !{expression}}
+
 mixin debug(variables)
 %_| {@debug !{variables}}`.replace(
     /%_/g,
@@ -67,7 +70,7 @@ const transformer: Transformer<Options.Pug> = async ({
   const { type: identationType } = detectIndent(content);
   const input = `${GET_MIXINS(identationType ?? 'space')}\n${content}`;
   const compiled = pug.compile(
-    input,
+    pug_hack(input),
     pugOptions,
     // @types/pug compile() returned value doesn't have `dependencies` prop
   ) as pug.compileTemplate & { dependencies?: string[] };
