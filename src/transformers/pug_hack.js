@@ -33,15 +33,18 @@
   bind = (pug) => {
     return extract_li(pug, '(', ')', (txt) => {
       return txt.split(' ').map((line) => {
-        var attr, begin, end, pos, replace, wrap;
+        var attr, begin, end, pos, replace, set, wrap;
         attr = line.trimStart();
         begin = line.length - attr.length;
         attr = attr.trimEnd();
         end = begin + attr.length;
         begin = line.slice(0, begin);
         end = line.slice(end);
+        set = (txt) => {
+          return line = begin + txt + end;
+        };
         wrap = (txt, attr) => {
-          return line = begin + txt + '"{' + attr + '}"' + end;
+          return set(txt + '"{' + attr + '}"');
         };
         replace = (key, to) => {
           var at_pos, pos;
@@ -56,7 +59,11 @@
                 replace('@', 'on');
                 break;
               case ':':
-                replace(':', 'bind');
+                if (attr.indexOf('=') > 0) {
+                  replace(':', 'bind');
+                } else {
+                  set('{' + attr.slice(1) + '}');
+                }
                 break;
               default:
                 pos = attr.indexOf('=:');
@@ -100,6 +107,7 @@
   form(
     @submit|preventDefault=submit
     src=:src
+    :alt
   )
 
 form(:value=test @click=hi)

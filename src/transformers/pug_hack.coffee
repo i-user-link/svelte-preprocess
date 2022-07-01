@@ -40,8 +40,11 @@ bind = (pug)=>
           begin = line[...begin]
           end = line[end..]
 
+          set = (txt)=>
+            line = begin+txt+end
+
           wrap = (txt,attr)=>
-            line = begin+txt+'"{'+attr+'}"'+end
+            set txt+'"{'+attr+'}"'
 
           replace = (key, to)=>
             at_pos = attr.indexOf(key)+key.length
@@ -54,7 +57,10 @@ bind = (pug)=>
                 when '@'
                   replace '@','on'
                 when ':'
-                  replace ':','bind'
+                  if attr.indexOf('=') > 0
+                    replace ':','bind'
+                  else
+                    set '{'+attr[1..]+'}'
                 else
                   pos = attr.indexOf('=:')
                   if pos > 0
@@ -89,6 +95,7 @@ if process.argv[1] == __filename
     form(
       @submit|preventDefault=submit
       src=:src
+      :alt
     )
 
   form(:value=test @click=hi)
