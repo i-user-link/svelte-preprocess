@@ -105,6 +105,7 @@ if process.argv[1] == __filename
       :alt
       class:red=abc
     )
+    h2(class:red=abc)
 
   form(:value=test @click=hi)
 
