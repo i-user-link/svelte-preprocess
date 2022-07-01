@@ -21,7 +21,6 @@ extract_li = (html, begin, end, replace)->
     li.push replace html[p...e]
     pre = e
     p = end_len + e
-  console.log('-----')
 
   li.join ''
 
@@ -41,13 +40,13 @@ bind = (pug)=>
           begin = line[...begin]
           end = line[end..]
 
-          wrap = (txt)=>
-            line = begin+txt+end
+          wrap = (txt,attr)=>
+            line = begin+txt+'"{'+attr+'}"'+end
 
           replace = (key, to)=>
             at_pos = attr.indexOf(key)+key.length
             pos = attr.indexOf('=',at_pos)+1
-            wrap attr[...at_pos-1]+to+":"+attr[at_pos...pos]+'"{'+attr[pos..]+'}"'
+            wrap attr[...at_pos-1]+to+":"+attr[at_pos...pos],attr[pos..]
 
           if attr
             if attr.indexOf('="')<0
@@ -56,7 +55,11 @@ bind = (pug)=>
                   replace '@','on'
                 when ':'
                   replace ':','bind'
-
+                else
+                  pos = attr.indexOf('=:')
+                  if pos > 0
+                    pos += 1
+                    wrap attr[...pos], attr[pos+1..]
           line
       ).join(' ')
   )
@@ -85,6 +88,7 @@ if process.argv[1] == __filename
 
     form(
       @submit|preventDefault=submit
+      src=:src
     )
 
   form(:value=test @click=hi)
