@@ -27,28 +27,27 @@
       pre = e;
       p = end_len + e;
     }
-    console.log('-----');
     return li.join('');
   };
 
   bind = (pug) => {
     return extract_li(pug, '(', ')', (txt) => {
       return txt.split(' ').map((line) => {
-        var attr, begin, end, replace, wrap;
+        var attr, begin, end, pos, replace, wrap;
         attr = line.trimStart();
         begin = line.length - attr.length;
         attr = attr.trimEnd();
         end = begin + attr.length;
         begin = line.slice(0, begin);
         end = line.slice(end);
-        wrap = (txt) => {
-          return line = begin + txt + end;
+        wrap = (txt, attr) => {
+          return line = begin + txt + '"{' + attr + '}"' + end;
         };
         replace = (key, to) => {
           var at_pos, pos;
           at_pos = attr.indexOf(key) + key.length;
           pos = attr.indexOf('=', at_pos) + 1;
-          return wrap(attr.slice(0, at_pos - 1) + to + ":" + attr.slice(at_pos, pos) + '"{' + attr.slice(pos) + '}"');
+          return wrap(attr.slice(0, at_pos - 1) + to + ":" + attr.slice(at_pos, pos), attr.slice(pos));
         };
         if (attr) {
           if (attr.indexOf('="') < 0) {
@@ -58,6 +57,13 @@
                 break;
               case ':':
                 replace(':', 'bind');
+                break;
+              default:
+                pos = attr.indexOf('=:');
+                if (pos > 0) {
+                  pos += 1;
+                  wrap(attr.slice(0, pos), attr.slice(pos + 1));
+                }
             }
           }
         }
@@ -93,6 +99,7 @@
 
   form(
     @submit|preventDefault=submit
+    src=:src
   )
 
 form(:value=test @click=hi)
