@@ -1783,10 +1783,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@rmw/coffee-label-patch@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.npmmirror.com/@rmw/coffee-label-patch/-/coffee-label-patch-0.0.12.tgz#aca764740605d2845d0ac7a5401e1438154d6808"
-  integrity sha512-LOkfmW2Oc2Q0edNzfP2qAWViq/4p5qMhqh/0kLUy/y2X0xdoewoVafIz3NGmWcXAkwdgi9XgZ0cplYWQwTKOxg==
+"@rmw/coffee-label-patch@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@rmw/coffee-label-patch/-/coffee-label-patch-0.0.13.tgz#a75fa17cb63d2461098cd2770c943164aa701fd7"
+  integrity sha512-TmTnGuCTK9RJP1av66ZckfUrNuq4Zs8WtEgxE/leKlrwi+ZzGjqB0bzlVjtna2txA64NJ6+3EemqmXoogFhM1w==
 
 "@sinclair/typebox@^0.23.3":
   version "0.23.5"
