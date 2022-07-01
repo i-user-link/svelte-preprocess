@@ -33,7 +33,7 @@
   bind = (pug) => {
     return extract_li(pug, '(', ')', (txt) => {
       return txt.split(' ').map((line) => {
-        var attr, begin, end, pos, replace, set, wrap;
+        var attr, begin, end, pos, replace, set, wrap, 冒号, 等号;
         attr = line.trimStart();
         begin = line.length - attr.length;
         attr = attr.trimEnd();
@@ -70,6 +70,12 @@
                 if (pos > 0) {
                   pos += 1;
                   wrap(attr.slice(0, pos), attr.slice(pos + 1));
+                } else {
+                  冒号 = attr.indexOf(':');
+                  等号 = attr.indexOf('=');
+                  if (冒号 > 0 && 冒号 < 等号) {
+                    wrap(attr.slice(0, +等号 + 1 || 9e9), attr.slice(等号 + 1));
+                  }
                 }
             }
           }
@@ -108,6 +114,7 @@
     @submit|preventDefault=submit
     src=:src
     :alt
+    class:red=abc
   )
 
 form(:value=test @click=hi)

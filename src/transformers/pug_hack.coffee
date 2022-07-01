@@ -66,6 +66,13 @@ bind = (pug)=>
                   if pos > 0
                     pos += 1
                     wrap attr[...pos], attr[pos+1..]
+                  else
+                    冒号 = attr.indexOf ':'
+                    等号 = attr.indexOf '='
+
+                    if 冒号 > 0 and 冒号<等号
+                      wrap attr[..等号],attr[等号+1..]
+
           line
       ).join(' ')
   )
@@ -96,6 +103,7 @@ if process.argv[1] == __filename
       @submit|preventDefault=submit
       src=:src
       :alt
+      class:red=abc
     )
 
   form(:value=test @click=hi)
