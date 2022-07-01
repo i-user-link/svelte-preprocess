@@ -34,30 +34,30 @@
   bind = (pug) => {
     return extract_li(pug, '(', ')', (txt) => {
       return txt.split(' ').map((line) => {
-        var attr, pos, replace, 冒号, 等号;
+        var attr, begin, end, replace, wrap;
+        attr = line.trimStart();
+        begin = line.length - attr.length;
+        attr = attr.trimEnd();
+        end = begin + attr.length;
+        begin = line.slice(0, begin);
+        end = line.slice(end);
+        wrap = (txt) => {
+          return line = begin + txt + end;
+        };
         replace = (key, to) => {
           var at_pos, pos;
-          at_pos = line.indexOf(key) + key.length;
-          pos = line.indexOf('=', at_pos) + 1;
-          return line = line.slice(0, at_pos - 1) + to + ":" + line.slice(at_pos, pos) + '"{' + line.slice(pos) + '}"';
+          at_pos = attr.indexOf(key) + key.length;
+          pos = attr.indexOf('=', at_pos) + 1;
+          return wrap(attr.slice(0, at_pos - 1) + to + ":" + attr.slice(at_pos, pos) + '"{' + attr.slice(pos) + '}"');
         };
-        attr = line.trim();
         if (attr) {
           if (attr.indexOf('="') < 0) {
-            冒号 = line.indexOf(':');
-            if (冒号 > 0) {
-              等号 = line.indexOf('=');
-              if (等号 > 0 && 冒号 < 等号) {
-                line = line.slice(0, +等号 + 1 || 9e9) + '"{' + line.slice(等号 + 1) + '}"';
-                console.log('>', attr);
-              }
-            } else if (attr.startsWith('this=')) {
-              pos = line.indexOf('this=') + 5;
-              line = line.slice(0, pos) + '"{' + line.slice(pos) + '}"';
-            } else if (attr.startsWith('@')) {
-              replace('@', 'on');
-            } else if (attr.startsWith(':')) {
-              replace(':', 'bind');
+            switch (attr.charAt(0)) {
+              case '@':
+                replace('@', 'on');
+                break;
+              case ':':
+                replace(':', 'bind');
             }
           }
         }
@@ -88,20 +88,15 @@
     return li.join('\n');
   };
 
-  console.log(main(`+if 1
-
-  form(on:submit|preventDefault="{ submit }")
+  if (process.argv[1] === __filename) {
+    console.log(main(`+if 1
 
   form(
-    on:submit|preventDefault=submit style="color:#ff0"
+    @submit|preventDefault=submit
   )
 
 form(:value=test @click=hi)
-
-form(bind:value=test)
-
-svelte:component(this=expression)
-
-ttt`));
+`));
+  }
 
 }).call(this);

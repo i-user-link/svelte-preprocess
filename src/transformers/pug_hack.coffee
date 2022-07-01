@@ -33,27 +33,29 @@ bind = (pug)=>
     (txt)=>
       txt.split(' ').map(
         (line)=>
-          replace = (key, to)=>
-            at_pos = line.indexOf(key)+key.length
-            pos = line.indexOf('=',at_pos)+1
-            line = line[...at_pos-1]+to+":"+line[at_pos...pos]+'"{'+line[pos..]+'}"'
+          attr = line.trimStart()
+          begin = line.length - attr.length
+          attr = attr.trimEnd()
+          end = begin + attr.length
 
-          attr = line.trim()
+          begin = line[...begin]
+          end = line[end..]
+
+          wrap = (txt)=>
+            line = begin+txt+end
+
+          replace = (key, to)=>
+            at_pos = attr.indexOf(key)+key.length
+            pos = attr.indexOf('=',at_pos)+1
+            wrap attr[...at_pos-1]+to+":"+attr[at_pos...pos]+'"{'+attr[pos..]+'}"'
+
           if attr
             if attr.indexOf('="')<0
-              冒号 = line.indexOf(':')
-              if 冒号 > 0
-                等号 = line.indexOf('=')
-                if 等号 > 0 and 冒号<等号
-                  line = line[..等号]+'"{'+line[等号+1..]+'}"'
-                  console.log '>',attr
-              else if attr.startsWith('this=')
-                pos = line.indexOf('this=')+5
-                line = line[...pos]+'"{'+line[pos..]+'}"'
-              else if attr.startsWith('@')
-                replace '@','on'
-              else if attr.startsWith(':')
-                replace ':','bind'
+              switch attr.charAt(0)
+                when '@'
+                  replace '@','on'
+                when ':'
+                  replace ':','bind'
 
           line
       ).join(' ')
@@ -77,20 +79,14 @@ module.exports = main = (pug)=>
   li.join('\n')
 
 
-console.log main("""
-+if 1
+if process.argv[1] == __filename
+  console.log main("""
+  +if 1
 
-  form(on:submit|preventDefault="{ submit }")
+    form(
+      @submit|preventDefault=submit
+    )
 
-  form(
-    on:submit|preventDefault=submit style="color:#ff0"
-  )
+  form(:value=test @click=hi)
 
-form(:value=test @click=hi)
-
-form(bind:value=test)
-
-svelte:component(this=expression)
-
-ttt
-""")
+  """)
