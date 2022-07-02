@@ -54,6 +54,10 @@ bind = (pug)=>
           if attr
             if attr.indexOf('="')<0
               switch attr.charAt(0)
+                when '&'
+                  等号 = attr.indexOf '='
+                  if 等号 < 0
+                    wrap 'bind:this=', attr[1..]
                 when '@'
                   replace '@','on'
                 when ':'
@@ -104,6 +108,7 @@ if process.argv[1] == __filename
       src=:src
       :alt
       class:red=abc
+      &ref
     )
     h2(class:red=abc)
 

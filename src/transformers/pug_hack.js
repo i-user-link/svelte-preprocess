@@ -55,6 +55,12 @@
         if (attr) {
           if (attr.indexOf('="') < 0) {
             switch (attr.charAt(0)) {
+              case '&':
+                等号 = attr.indexOf('=');
+                if (等号 < 0) {
+                  wrap('bind:this=', attr.slice(1));
+                }
+                break;
               case '@':
                 replace('@', 'on');
                 break;
@@ -115,7 +121,9 @@
     src=:src
     :alt
     class:red=abc
+    &ref
   )
+  h2(class:red=abc)
 
 form(:value=test @click=hi)
 `));
