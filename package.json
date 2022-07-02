@@ -1,6 +1,6 @@
 {
   "name": "@rmw/svelte-preprocess",
-  "version": "4.10.15",
+  "version": "4.10.16",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
