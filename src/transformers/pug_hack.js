@@ -62,7 +62,17 @@
                 }
                 break;
               case '@':
-                replace('@', 'on');
+                等号 = attr.indexOf('=');
+                if (等号 < 0) {
+                  attr = attr.slice(1);
+                  if (attr !== 'message') {
+                    wrap('on:' + attr + '=', attr);
+                  } else {
+                    set('on:' + attr);
+                  }
+                } else {
+                  replace('@', 'on');
+                }
                 break;
               case ':':
                 if (attr.indexOf('=') > 0) {
@@ -125,8 +135,9 @@
   )
   h2(class:red=abc)
 
-form(:value=test @click=hi)
-`));
+form(:value=test @click=hi @submit)
+
+Test(@message)`));
   }
 
 }).call(this);

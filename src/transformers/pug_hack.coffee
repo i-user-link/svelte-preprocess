@@ -59,7 +59,15 @@ bind = (pug)=>
                   if 等号 < 0
                     wrap 'bind:this=', attr[1..]
                 when '@'
-                  replace '@','on'
+                  等号 = attr.indexOf '='
+                  if 等号 < 0
+                    attr = attr[1..]
+                    if attr != 'message'
+                      wrap 'on:'+attr+'=',attr
+                    else
+                      set 'on:'+attr
+                  else
+                    replace '@','on'
                 when ':'
                   if attr.indexOf('=') > 0
                     replace ':','bind'
@@ -112,6 +120,7 @@ if process.argv[1] == __filename
     )
     h2(class:red=abc)
 
-  form(:value=test @click=hi)
+  form(:value=test @click=hi @submit)
 
+  Test(@message)
   """)
