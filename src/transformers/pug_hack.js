@@ -66,7 +66,7 @@
                 if (等号 < 0) {
                   attr = attr.slice(1);
                   if (attr !== 'message') {
-                    wrap('on:' + attr + '=', attr);
+                    wrap('on:' + attr + '=', attr.split('|', 1)[0]);
                   } else {
                     set('on:' + attr);
                   }
@@ -128,6 +128,7 @@
 
   form(
     @submit|preventDefault=submit
+    @submit|preventDefault
     src=:src
     :alt
     class:red=abc

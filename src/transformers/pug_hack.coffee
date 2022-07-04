@@ -63,7 +63,7 @@ bind = (pug)=>
                   if 等号 < 0
                     attr = attr[1..]
                     if attr != 'message'
-                      wrap 'on:'+attr+'=',attr
+                      wrap 'on:'+attr+'=',attr.split('|',1)[0]
                     else
                       set 'on:'+attr
                   else
@@ -113,6 +113,7 @@ if process.argv[1] == __filename
 
     form(
       @submit|preventDefault=submit
+      @submit|preventDefault
       src=:src
       :alt
       class:red=abc
