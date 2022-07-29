@@ -8,7 +8,7 @@
   extract_li = function(html, begin, end, replace) {
     var e, end_len, len, li, p, pre;
     len = begin.length;
-    end_len = 1 + end.length;
+    end_len = end.length;
     pre = p = 0;
     li = [];
     while (true) {
@@ -138,7 +138,16 @@
 
 form(:value=test @click=hi @submit)
 
-Test(@message)`));
+Test(@message)
+
+mixin p_input(placeholder)
+  li
+    input(
+      type="text"
+      placeholder=" "
+    )&attributes(attributes)
+    label(for!=attributes.id)!= placeholder
++p_input("邮箱")(type="email" :value=mail)#i-user-mail`));
   }
 
 }).call(this);

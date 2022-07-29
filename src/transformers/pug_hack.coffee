@@ -4,7 +4,7 @@ CMD = new Set('if else elseif key each await then catch html const debug'.split(
 
 extract_li = (html, begin, end, replace)->
   len = begin.length
-  end_len = 1+end.length
+  end_len = end.length
   pre = p = 0
 
   li = []
@@ -124,4 +124,13 @@ if process.argv[1] == __filename
   form(:value=test @click=hi @submit)
 
   Test(@message)
+
+  mixin p_input(placeholder)
+    li
+      input(
+        type="text"
+        placeholder=" "
+      )&attributes(attributes)
+      label(for!=attributes.id)!= placeholder
+  +p_input("邮箱")(type="email" :value=mail)#i-user-mail
   """)
