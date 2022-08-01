@@ -1,6 +1,6 @@
 {
   "name": "@iuser/svelte-preprocess",
-  "version": "4.10.23",
+  "version": "4.10.24",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
