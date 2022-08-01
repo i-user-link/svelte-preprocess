@@ -1,0 +1,15 @@
+{
+  "extends": ["@kiwi"],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-console": "off",
+    "line-comment-position": "off"
+  }
+}

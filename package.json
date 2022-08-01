@@ -1,0 +1,166 @@
+{
+  "name": "@rmw/svelte-preprocess",
+  "version": "4.10.23",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "description": "A Svelte preprocessor wrapper with baked-in support for commonly used preprocessors",
+  "author": "Christian Kaisermann <christian@kaisermann.me>",
+  "repository": "https://github.com/sveltejs/svelte-preprocess",
+  "keywords": [
+    "svelte",
+    "preprocess",
+    "less",
+    "stylus",
+    "sass",
+    "scss",
+    "pug",
+    "coffeescript"
+  ],
+  "engines": {
+    "node": ">= 9.11.2"
+  },
+  "volta": {
+    "node": "14.18.2"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist/",
+    "build": "tsc --build tsconfig.build.json && cp src/transformers/*.js  dist/transformers",
+    "dev": "npm run build -- -w",
+    "test": "jest",
+    "lint": "eslint --ext js,ts .",
+    "format": "prettier --write \"**/*.{ts,js,json}\"",
+    "postinstall": "echo \"[svelte-preprocess] Don't forget to install the preprocessors packages that will be used: node-sass/sass, stylus, less, postcss & postcss-load-config, coffeescript, pug, etc...\"",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1 && git add CHANGELOG.md",
+    "patch": "npm version patch -m 'chore(release): %s'",
+    "minor": "npm version minor -m 'chore(release): %s'",
+    "major": "npm version major -m 'chore(release): %s'",
+    "prepublishOnly": "npm run build"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.ts",
+      "!<rootDir>/src/types/**/*.ts"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "tsc --noEmit",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "post-merge": "yarn"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@kiwi/eslint-config": "^1.19.2",
+    "@kiwi/prettier-config": "^1.19.2",
+    "@rmw/coffee-label-patch": "^0.0.17",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.6.2",
+    "@types/node-sass": "^4.11.3",
+    "@types/stylus": "^0.48.38",
+    "autoprefixer": "^10.4.8",
+    "babel-minify": "^0.5.2",
+    "coffeescript": "^2.7.0",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^8.20.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "less": "^4.1.3",
+    "lint-staged": "^13.0.3",
+    "node-sass": "^7.0.1",
+    "postcss": "^8",
+    "postcss-easy-import": "^4.0.0",
+    "postcss-load-config": "^4.0.1",
+    "prettier": "^2.7.1",
+    "pug": "^3.0.2",
+    "sass": "^1.54.0",
+    "stylus": "^0.58.1",
+    "sugarss": "^4.0.1",
+    "svelte": "^3.49.0",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@types/pug": "^2.0.6",
+    "@types/sass": "^1.43.1",
+    "detect-indent": "^6.0.0",
+    "magic-string": "^0.26.2",
+    "sorcery": "^0.10.0",
+    "strip-indent": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "^7.18.9",
+    "@rmw/coffee-label-patch": "^0.0.17",
+    "coffeescript": "^2.7.0",
+    "less": "^3.11.3 || ^4.0.0",
+    "postcss": "^7 || ^8",
+    "postcss-load-config": "^2.1.0 || ^3.0.0",
+    "pug": "^3.0.2",
+    "sass": "^1.54.0",
+    "stylus": "^0.58.1",
+    "sugarss": "^4.0.1",
+    "svelte": "^3.23.0",
+    "typescript": "^3.9.5 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
+    },
+    "coffeescript": {
+      "optional": true
+    },
+    "less": {
+      "optional": true
+    },
+    "node-sass": {
+      "optional": true
+    },
+    "postcss": {
+      "optional": true
+    },
+    "postcss-load-config": {
+      "optional": true
+    },
+    "pug": {
+      "optional": true
+    },
+    "sass": {
+      "optional": true
+    },
+    "stylus": {
+      "optional": true
+    },
+    "sugarss": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  }
+}
