@@ -55,42 +55,43 @@
         if (attr) {
           if (attr.indexOf('="') < 0) {
             switch (attr.charAt(0)) {
-              case '&':
-                等号 = attr.indexOf('=');
-                if (等号 < 0) {
-                  wrap('bind:this=', attr.slice(1));
+              case '@':
+                if (attr.charAt(1) === '&') {
+                  wrap('bind:this=', attr.slice(2));
+                } else {
+                  等号 = attr.indexOf('=');
+                  if (等号 < 0) {
+                    attr = attr.slice(1);
+                    if (attr !== 'message') {
+                      wrap('on:' + attr + '=', attr.split('|', 1)[0]);
+                    } else {
+                      set('on:' + attr);
+                    }
+                  } else {
+                    replace('@', 'on');
+                  }
                 }
                 break;
-              case '@':
-                等号 = attr.indexOf('=');
-                if (等号 < 0) {
-                  attr = attr.slice(1);
-                  if (attr !== 'message') {
-                    wrap('on:' + attr + '=', attr.split('|', 1)[0]);
-                  } else {
-                    set('on:' + attr);
-                  }
-                } else {
-                  replace('@', 'on');
-                }
+              case '&':
+                wrap('bind:value=', attr.slice(1));
                 break;
               case ':':
-                if (attr.indexOf('=') > 0) {
-                  replace(':', 'bind');
-                } else {
-                  set('{' + attr.slice(1) + '}');
-                }
+                set('{' + attr.slice(1) + '}');
                 break;
               default:
-                pos = attr.indexOf('=:');
-                if (pos > 0) {
-                  pos += 1;
-                  wrap(attr.slice(0, pos), attr.slice(pos + 1));
+                pos = attr.indexOf('&');
+                等号 = attr.indexOf('=');
+                if (pos > 0 && 等号 < 0) {
+                  wrap('bind:' + attr.slice(0, pos) + '=', attr.slice(pos + 1));
                 } else {
-                  冒号 = attr.indexOf(':');
-                  等号 = attr.indexOf('=');
-                  if (冒号 > 0 && 冒号 < 等号) {
-                    wrap(attr.slice(0, +等号 + 1 || 9e9), attr.slice(等号 + 1));
+                  pos = attr.indexOf(':');
+                  if (pos > 0 && 等号 < 0) {
+                    wrap(attr.slice(0, pos) + '=', attr.slice(pos + 1));
+                  } else {
+                    冒号 = attr.indexOf(':');
+                    if (冒号 > 0 && 冒号 < 等号) {
+                      wrap(attr.slice(0, +等号 + 1 || 9e9), attr.slice(等号 + 1));
+                    }
                   }
                 }
             }
@@ -136,15 +137,15 @@
   form(
     @submit|preventDefault=submit
     @submit|preventDefault
-    src=:src
+    src:url
     :alt
     class:red=abc
-    &ref
+    @&ref
   )
   h2(class:red=abc)
 
 form(:value=test @click=hi @submit)
-
+input(type="checkbox" checked&me)
 Test(@message)
 
 mixin p_input(placeholder)
@@ -154,7 +155,7 @@ mixin p_input(placeholder)
       placeholder=" "
     )&attributes(attributes)
     label(for!=attributes.id)!= placeholder
-+p_input(>mail)(type="email" :value=mail)#i-user-mail`, "src/Index.svelte"));
++p_input(>mail)(type="email" &mail)#i-user-mail`, "src/Index.svelte"));
   }
 
 }).call(this);
