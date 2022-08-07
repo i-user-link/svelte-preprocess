@@ -4,4 +4,4 @@ declare module 'strip-indent';
 declare module 'postcss-load-config';
 declare module 'less';
 declare module 'sorcery';
-declare module '@rmw/coffee-label-patch';
+declare module 'coffee_plus';
