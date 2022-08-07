@@ -1,3 +1,7 @@
+## [4.10.31](https://github.com/sveltejs/svelte-preprocess/compare/v4.10.30...v4.10.31) (2022-08-07)
+
+
+
 ## [4.10.30](https://github.com/sveltejs/svelte-preprocess/compare/v4.10.29...v4.10.30) (2022-08-07)
 
 
