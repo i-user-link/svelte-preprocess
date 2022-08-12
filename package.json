@@ -108,7 +108,7 @@
   "dependencies": {
     "@types/pug": "^2.0.6",
     "@types/sass": "^1.43.1",
-    "coffee_plus": "^0.0.22",
+    "coffee_plus": "^0.0.23",
     "detect-indent": "^6.0.0",
     "magic-string": "^0.26.2",
     "sorcery": "^0.10.0",
