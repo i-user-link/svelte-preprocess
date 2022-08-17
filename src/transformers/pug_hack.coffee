@@ -97,10 +97,6 @@ module.exports = main = (pug, filename, options)=>
 
   li = []
   for line in bind(pug).split('\n')
-    line = line.replaceAll(
-      /(['"\s\(])>([\w_]+)/g
-      "$1{i18n.$2}"
-    )
     ts = line.trimStart()
     i = ts.trimEnd()
     if i.charAt(0) == '+'
