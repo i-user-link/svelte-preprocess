@@ -91,7 +91,6 @@ bind = (pug)=>
 
 
 
-
 module.exports = main = (pug, filename, options)=>
   filename = filename[4..-8]
 
@@ -129,7 +128,7 @@ p >mail_or_phone
   )
   h2(class:red=abc)
 
-form(:value=test @click=hi @submit)
+form(value:test @click=hi @submit)
 input(type="checkbox" checked&me)
 Test(@message)
 
