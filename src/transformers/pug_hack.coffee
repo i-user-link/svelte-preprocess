@@ -119,11 +119,13 @@ p >mail_or_phone
 +if 1
 
   form(
-    @submit|preventDefault=submit
+    @click={signin=1}
+    @submit|preventDefault=test
     @submit|preventDefault
     src:url
     :alt
     class:red=abc
+    class:red
     @&ref
   )
   h2(class:red=abc)
