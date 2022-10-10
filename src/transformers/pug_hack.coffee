@@ -1,6 +1,6 @@
 #!/usr/bin/env coffee
 
-CMD = new Set('if else elseif key each await then catch html const debug'.split(' '))
+CMD = new Set('if else elif elseif key each await then catch html const debug'.split(' '))
 
 extract_li = (html, begin, end, replace)->
   len = begin.length
@@ -103,7 +103,9 @@ module.exports = main = (pug, filename, options)=>
       if pos > 0
         cmd = i[1...pos]
         if CMD.has cmd
-          line = ''.padEnd(line.length-ts.length)+i[...pos]+'(\''+i[pos+1..].replaceAll('\'','\\\'')+'\')'
+          if cmd == 'elif'
+            cmd = 'elseif'
+          line = ''.padEnd(line.length-ts.length)+'+'+cmd+'(\''+i[pos+1..].replaceAll('\'','\\\'')+'\')'
     li.push line
   li.join('\n')
 
@@ -129,6 +131,8 @@ p >mail_or_phone
     @&ref
   )
   h2(class:red=abc)
+  +elif x == 1
+    b 3
 
 form(value:test @click=hi @submit)
 input(type="checkbox" checked&me)
