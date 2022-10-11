@@ -13,6 +13,10 @@ git add -u
 git commit -m v$version || true
 }
 
+cd src/transformers
+bun run cep -- -c .
+cd $_DIR
+
 add
 
 git pull
