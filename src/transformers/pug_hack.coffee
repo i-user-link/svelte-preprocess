@@ -24,13 +24,41 @@ extract_li = (html, begin, end, replace)->
 
   li.join ''
 
+split = (txt)=>
+  li = []
+  t = []
+
+  state = 0
+
+  for i from txt
+    if state == 0
+      if i == '"'
+        state = 1
+        t.push i
+        continue
+      if i == ' '
+        li.push t.join('')
+        t = []
+      else
+        t.push i
+    else if state == 1
+      if i == '"'
+        if t[t.length-1]!='\\'
+          state = 0
+      t.push i
+
+  if t.length
+    li.push t.join('')
+  li
+
+
 bind = (pug)=>
   extract_li(
     pug
     '('
     ')'
     (txt)=>
-      txt.split(' ').map(
+      split(txt).map(
         (line)=>
           attr = line.trimStart()
           begin = line.length - attr.length
@@ -135,7 +163,7 @@ p >mail_or_phone
     b 3
 
 form(value:test @click=hi @submit)
-input(type="checkbox" checked&me)
+input(type="checkbox" checked&me autocomplete="{ up ? 'off' : null }")
 Test(@message)
 
 mixin p_input(placeholder)
