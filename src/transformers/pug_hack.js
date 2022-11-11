@@ -1,4 +1,4 @@
-#!/usr/bin/env -S node --loader=@u6x/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict
+#!/usr/bin/env -S node --loader=@u6x/jsext --trace-uncaught --expose-gc --unhandled-rejections=strict --experimental-import-meta-resolve
 var CMD, bind, extract_li, main, split;
 
 CMD = new Set('if else elif elseif key each await then catch html const debug'.split(' '));
