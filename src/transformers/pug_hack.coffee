@@ -15,6 +15,12 @@ extract_li = (html, begin, end, replace)->
       break
     p += len
     e = html.indexOf end,p
+    loop
+      if '}' == html.charAt(e+1)
+        e = html.indexOf end,e+1
+      else
+        break
+
     if e < 0
       break
     li.push html[pre...p]
@@ -60,6 +66,8 @@ bind = (pug)=>
     (txt)=>
       split(txt).map(
         (line)=>
+          if not line.trim()
+            return line
           attr = line.trimStart()
           begin = line.length - attr.length
           attr = attr.trimEnd()
@@ -72,7 +80,9 @@ bind = (pug)=>
             line = begin+txt+end
 
           wrap = (txt,attr)=>
-            set txt+'"{'+attr+'}"'
+            if not attr.startsWith '{'
+              attr = '"{'+attr+'}"'
+            set txt+attr
 
           replace = (key, to)=>
             at_pos = attr.indexOf(key)+key.length
@@ -149,6 +159,7 @@ p >mail_or_phone
 +if 1
 
   form(
+    @click={signin(1)}
     @click={signin=1}
     @submit|preventDefault=test
     @submit|preventDefault
