@@ -81,8 +81,8 @@ bind = (pug)=>
 
           wrap = (txt,attr)=>
             if not attr.startsWith '{'
-              attr = '"{'+attr+'}"'
-            set txt+attr
+              attr = '{'+attr+'}'
+            set txt+'"'+attr+'"'
 
           replace = (key, to)=>
             at_pos = attr.indexOf(key)+key.length
