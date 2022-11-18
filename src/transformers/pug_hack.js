@@ -17,6 +17,13 @@ extract_li = function(html, begin, end, replace) {
     }
     p += len;
     e = html.indexOf(end, p);
+    while (true) {
+      if ('}' === html.charAt(e + 1)) {
+        e = html.indexOf(end, e + 1);
+      } else {
+        break;
+      }
+    }
     if (e < 0) {
       break;
     }
@@ -65,6 +72,9 @@ bind = (pug) => {
   return extract_li(pug, '(', ')', (txt) => {
     return split(txt).map((line) => {
       var attr, begin, end, pos, replace, set, wrap, 冒号, 等号;
+      if (!line.trim()) {
+        return line;
+      }
       attr = line.trimStart();
       begin = line.length - attr.length;
       attr = attr.trimEnd();
@@ -75,7 +85,10 @@ bind = (pug) => {
         return line = begin + txt + end;
       };
       wrap = (txt, attr) => {
-        return set(txt + '"{' + attr + '}"');
+        if (!attr.startsWith('{')) {
+          attr = '{' + attr + '}';
+        }
+        return set(txt + '"' + attr + '"');
       };
       replace = (key, to) => {
         var at_pos, pos;
@@ -168,6 +181,7 @@ if (process.argv[1] === __filename) {
 +if 1
 
   form(
+    @click={signin(1)}
     @click={signin=1}
     @submit|preventDefault=test
     @submit|preventDefault
