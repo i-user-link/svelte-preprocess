@@ -10,6 +10,9 @@ dependencies:
   '@w5/coffee_plus':
     specifier: ^0.0.13
     version: 0.0.13
+  '@w5/jsext':
+    specifier: ^0.0.1
+    version: 0.0.1
   detect-indent:
     specifier: ^6.1.0
     version: 6.1.0

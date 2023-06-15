@@ -91,6 +91,7 @@
     "@types/pug": "^2.0.6",
     "@types/sass": "^1.43.1",
     "@w5/coffee_plus": "^0.0.13",
+    "@w5/jsext": "^0.0.1",
     "detect-indent": "^6.1.0",
     "magic-string": "^0.27.0",
     "sorcery": "^0.11.0",
