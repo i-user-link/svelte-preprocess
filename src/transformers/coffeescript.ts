@@ -1,6 +1,6 @@
 // @ts-nocheck
 import coffeescript from 'coffeescript';
-import {coffee_plus} from 'coffee_plus';
+import {coffee_plus} from '@w5/coffee_plus';
 const compile = coffee_plus(coffeescript);
 
 
